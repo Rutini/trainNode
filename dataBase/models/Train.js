@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
             type: {
                 type: DataTypes.STRING
             },
-            countOfCars: {
+            count_of_cars: {
                 type: DataTypes.INTEGER
             }
         },

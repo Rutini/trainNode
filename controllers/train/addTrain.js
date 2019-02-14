@@ -6,10 +6,11 @@ module.exports = async (req, res) => {
         const Train = dataBase.getModel('Train');
 
         const trainInfo = req.body;
+        const {number, type, countOfCars} = trainInfo;
         await Train.create({
-            number: trainInfo.number,
-            type: trainInfo.type,
-            countOfCars: trainInfo.countOfCars
+            number: number,
+            type: type,
+            count_of_cars: countOfCars
         });
 
         res.json({

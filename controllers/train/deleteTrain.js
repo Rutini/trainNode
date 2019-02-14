@@ -5,10 +5,10 @@ module.exports = async (req, res) => {
     try {
         const Train = dataBase.getModel('Train');
 
-        const ID = req.params.id;
+        const id = req.params.id;
         await Train.destroy({
             where: {
-                id: ID
+                id
             }
         });
 

@@ -5,15 +5,16 @@ module.exports = async (req, res) => {
     try {
         const Train = dataBase.getModel('Train');
 
-        const ID = req.params.id;
+        const id = req.params.id;
         const trainInfo = req.body;
+        const {number, type, countOfCars} = trainInfo;
         await Train.update({
-                number: trainInfo.number,
-                type: trainInfo.type,
-                countOfCars: trainInfo.countOfCars
+                number: number,
+                type: type,
+                count_of_cars: countOfCars
             }, {
                 where: {
-                    id: ID
+                    id
                 }
             }
         );

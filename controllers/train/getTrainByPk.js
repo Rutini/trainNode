@@ -5,8 +5,8 @@ module.exports = async (req, res) => {
     try {
         const Train = dataBase.getModel('Train');
 
-        const ID = req.params.id;
-        const gotTrain = await Train.findByPk(ID);
+        const id = req.params.id;
+        const gotTrain = await Train.findByPk(id);
 
         res.json({
             success: true,

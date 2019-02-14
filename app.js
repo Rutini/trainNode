@@ -1,12 +1,12 @@
 const express = require('express');
 const app = express();
 
-const trainRouter = require('./routes/train');
+const ApiRouter = require('./routes/API-Router');
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-app.use('/api/trains', trainRouter);
+app.use('/api', ApiRouter);
 
 app.listen(3000, err => {
     if (err) console.log(err);
