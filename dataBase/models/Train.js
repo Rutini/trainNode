@@ -14,6 +14,12 @@ module.exports = (sequelize, DataTypes) => {
             },
             count_of_cars: {
                 type: DataTypes.INTEGER
+            },
+            time_of_arrive: {
+                type: DataTypes.TIME
+            },
+            time_of_depart: {
+                type: DataTypes.TIME
             }
         },
         {

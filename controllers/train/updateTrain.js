@@ -7,11 +7,13 @@ module.exports = async (req, res) => {
 
         const id = req.params.id;
         const trainInfo = req.body;
-        const {number, type, countOfCars} = trainInfo;
+        const {number, type, countOfCars, time_of_arrive, time_of_depart} = trainInfo;
         await Train.update({
                 number: number,
                 type: type,
-                count_of_cars: countOfCars
+                count_of_cars: countOfCars,
+                time_of_arrive: time_of_arrive,
+                time_of_depart: time_of_depart
             }, {
                 where: {
                     id

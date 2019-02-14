@@ -1,11 +1,20 @@
 const dataBase = require('../../dataBase').getInstance();
+const Sequelize = require('sequelize');
 dataBase.setModels();
 
 module.exports = async (req, res) => {
 
     try {
         const Train = dataBase.getModel('Train');
-        const gotTrains = await Train.findAll({});
+        const gotTrains = await Train.findAll({
+            attributes:[
+                'id',
+                'number',
+                'type',
+                'count_of_cars',
+                [Sequelize.fn('time_format', Sequelize.col('time_of_arrive'), '%H:%i'), 'time_of_arrive'],
+                [Sequelize.fn('time_format', Sequelize.col('time_of_depart'), '%H:%i'), 'time_of_depart']]
+        });
 
         res.json({
             success: true,
