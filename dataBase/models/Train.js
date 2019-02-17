@@ -9,6 +9,9 @@ module.exports = (sequelize, DataTypes) => {
             number: {
                 type: DataTypes.INTEGER
             },
+            connection: {
+                type: DataTypes.STRING
+            },
             type: {
                 type: DataTypes.STRING
             },

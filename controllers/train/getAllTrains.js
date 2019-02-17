@@ -10,6 +10,7 @@ module.exports = async (req, res) => {
             attributes:[
                 'id',
                 'number',
+                'connection',
                 'type',
                 'count_of_cars',
                 [Sequelize.fn('time_format', Sequelize.col('time_of_arrive'), '%H:%i'), 'time_of_arrive'],
