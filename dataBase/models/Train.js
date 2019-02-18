@@ -23,6 +23,9 @@ module.exports = (sequelize, DataTypes) => {
             },
             time_of_depart: {
                 type: DataTypes.TIME
+            },
+            station_id: {
+                type: DataTypes.INTEGER
             }
         },
         {
