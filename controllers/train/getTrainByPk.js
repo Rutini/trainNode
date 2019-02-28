@@ -16,7 +16,8 @@ module.exports = async (req, res) => {
                 'count_of_cars',
                 [Sequelize.fn('time_format', Sequelize.col('time_of_arrive'), '%H:%i'), 'time_of_arrive'],
                 [Sequelize.fn('time_format', Sequelize.col('time_of_depart'), '%H:%i'), 'time_of_depart'],
-                'station_id'
+                'station_id',
+                'created_by'
             ],
             where: {
                 id

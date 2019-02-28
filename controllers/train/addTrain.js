@@ -6,15 +6,29 @@ module.exports = async (req, res) => {
         const Train = dataBase.getModel('Train');
 
         const trainInfo = req.body;
-        const {number, connection, type, count_of_cars, time_of_arrive, time_of_depart, station_id} = trainInfo;
+        const token = req.get('Authorization');
+
+        if(!token) throw new Error('No Token');
+
+        const {credentials} = token;
+
+        if (!credentials) throw new Error('You have no credentials to do it');
+
+        const {number, connection, type, count_of_cars, time_of_arrive, time_of_depart, station_id, created_by} = trainInfo;
+
+        if (!number || !connection || !type || !count_of_cars || !time_of_arrive || !time_of_depart || !station_id || !created_by) {
+            throw new Error('Some fields are empty');
+        }
+
         await Train.create({
-            number: number,
-            connection: connection,
-            type: type,
-            count_of_cars: count_of_cars,
-            time_of_arrive: time_of_arrive,
-            time_of_depart: time_of_depart,
-            station_id: station_id
+            number,
+            connection,
+            type,
+            count_of_cars,
+            time_of_arrive,
+            time_of_depart,
+            station_id,
+            created_by
         });
 
         res.json({

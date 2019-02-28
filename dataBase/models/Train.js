@@ -26,6 +26,9 @@ module.exports = (sequelize, DataTypes) => {
             },
             station_id: {
                 type: DataTypes.INTEGER
+            },
+            created_by: {
+                type: DataTypes.INTEGER
             }
         },
         {

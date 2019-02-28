@@ -3,18 +3,10 @@ dataBase.setModels();
 
 module.exports = async (req, res) => {
     try {
-        const Train = dataBase.getModel('Train');
+        const User = dataBase.getModel('User');
 
         const id = req.params.id;
-        const token = req.get('Authorization');
-
-        if(!token) throw new Error('No Token');
-
-        const {credentials} = token;
-
-        if (!credentials) throw new Error('You have no credentials to do it');
-
-        await Train.destroy({
+        await User.destroy({
             where: {
                 id
             }
@@ -22,7 +14,7 @@ module.exports = async (req, res) => {
 
         res.json({
             success: true,
-            message: 'train successfully deleted'
+            message: 'user successfully deleted'
         });
     } catch (e) {
         console.log(e);
