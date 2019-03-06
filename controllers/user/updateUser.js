@@ -1,12 +1,19 @@
 const dataBase = require('../../dataBase').getInstance();
-dataBase.setModels();
+const tokenVerificator = require('../../helpers/tokenVerificator');
+const {secret} = require('../../config/secrets');
+const {ADMIN} = require('../../config/credentials');
 
 module.exports = async (req, res) => {
     try {
         const User = dataBase.getModel('User');
 
         const id = req.params.id;
+
+        if (!id) throw new Error('No id');
+
         const userInfo = req.body;
+
+        if (!userInfo) throw new Error('Body is empty');
 
         const {name, email, password, credentials} = userInfo;
 
@@ -14,26 +21,27 @@ module.exports = async (req, res) => {
             throw new Error('Some field is empty');
         }
 
+        const token = req.get('Authorization');
 
-        /*
-        THIS MUST BE AN ACCESS
-        FOR UPDATE USERS
-        WHERE UPDATE
-        AND CHANGE THEIR CREDENTIALS
-        CAN DO ONLY ADMIN
-         */
+        if (!token) throw new Error('No Token');
 
-        await User.update({
-            name,
-            email,
-            password,
-            credentials
-            }, {
-                where: {
-                    id
+        const {credentials: currentUserCredentials} = tokenVerificator(token, secret);
+
+        if (currentUserCredentials === ADMIN) {
+
+            await User.update({
+                    name,
+                    email,
+                    password,
+                    credentials
+                }, {
+                    where: {
+                        id
+                    }
                 }
-            }
-        );
+            );
+        } else throw new Error('You have no credentials to do it');
+
 
         res.json({
             success: true,

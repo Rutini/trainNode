@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const {secret, RefreshSecret} = require('../config/secrets');
 
-module.exports = (id, email, credentials) => {
+module.exports = (id, credentials,email) => {
   const accessToken = jwt.sign({id, credentials}, secret, {expiresIn: 259200});
   const refreshToken = jwt.sign({id, email, credentials}, RefreshSecret, {expiresIn: 864000});
   const tokens = {

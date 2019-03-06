@@ -1,7 +1,6 @@
 const dataBase = require('../../dataBase').getInstance();
 const tokenVerificator = require('../../helpers/tokenVerificator');
 const {secret} = require('../../config/secrets');
-dataBase.setModels();
 
 module.exports = async (req, res) => {
 
@@ -18,7 +17,7 @@ module.exports = async (req, res) => {
         if(!isUserRegistered) throw new Error('This user does no registered');
 
         const user = {
-            id: isUserRegistered.id,
+            id,
             name: isUserRegistered.name,
             credentials: isUserRegistered.credentials
         };

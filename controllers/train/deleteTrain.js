@@ -1,24 +1,45 @@
 const dataBase = require('../../dataBase').getInstance();
-dataBase.setModels();
+const tokenVerificator = require('../../helpers/tokenVerificator');
+const {secret} = require('../../config/secrets');
+const {ADMIN, MODER} = require('../../config/credentials');
 
 module.exports = async (req, res) => {
     try {
         const Train = dataBase.getModel('Train');
 
         const id = req.params.id;
+
+        if (!id) throw new Error('No id');
+
         const token = req.get('Authorization');
 
         if(!token) throw new Error('No Token');
 
-        const {credentials} = token;
+        const {id: currentUserId, credentials} = tokenVerificator(token, secret);
 
-        if (!credentials) throw new Error('You have no credentials to do it');
+        if (credentials === ADMIN || credentials === MODER) {
+            await Train.destroy({
+                where: {
+                    id
+                }
+            });
+        } else {
 
-        await Train.destroy({
-            where: {
-                id
-            }
-        });
+            const sameTrain = await Train.findOne({
+                where: {
+                    id,
+                    created_by: currentUserId
+                }
+            });
+
+            if (!sameTrain) throw new Error('You have no credentials to do it');
+
+            await Train.destroy({
+                where: {
+                    id
+                }
+            });
+        }
 
         res.json({
             success: true,

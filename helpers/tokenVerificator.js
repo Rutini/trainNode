@@ -16,7 +16,6 @@ module.exports = (token, secret) => {
         }
     });
 
-    console.log(user);
     if(!user) throw new Error('Hands off from my site!');
 
     return user;

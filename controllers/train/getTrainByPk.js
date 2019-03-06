@@ -1,12 +1,14 @@
 const dataBase = require('../../dataBase').getInstance();
 const Sequelize = require('sequelize');
-dataBase.setModels();
 
 module.exports = async (req, res) => {
     try {
         const Train = dataBase.getModel('Train');
 
         const id = req.params.id;
+
+        if (!id) throw new Error('No id');
+
         const gotTrain = await Train.findOne({
             attributes:[
                 'id',
@@ -23,6 +25,8 @@ module.exports = async (req, res) => {
                 id
             }
         });
+
+        if (!gotTrain) throw new Error('Train with this id does not exist');
 
         res.json({
             success: true,
