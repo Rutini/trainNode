@@ -22,8 +22,8 @@ module.exports = async (req, res) => {
         const correctPassword = await new Promise((resolve, reject) => {
             bcrypt.compare(password, isPresent.password, (err, result) => {
                 if (err) {
-                     console.log(err);
-                     return reject(err);
+                    console.log(err);
+                    return reject(err);
                 }
                 return resolve(result);
             });
@@ -33,17 +33,12 @@ module.exports = async (req, res) => {
         const {id, credentials} = isPresent.dataValues;
         const {accessToken} = tokinazer(id, credentials);
 
-        if (!correctPassword) {
-            res.json({
-                success: false,
-                message: 'Wrong password'
-            });
-        } else if (correctPassword) {
-            res.json({
-                success: true,
-                message: accessToken
-            });
-        }
+        if (!correctPassword) throw new Error('Wrong password');
+
+        res.json({
+            success: true,
+            message: accessToken
+        });
 
     } catch (e) {
         console.log(e);

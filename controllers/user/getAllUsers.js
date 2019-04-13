@@ -14,13 +14,14 @@ module.exports = async (req, res) => {
 
         const {credentials} = tokenVerificator(token, secret);
 
-        if (credentials === ADMIN) {
-            const gotUsers = await User.findAll({});
-            res.json({
-                success: true,
-                message: gotUsers
-            });
-        } else throw new Error('You have no credentials to do it');
+        if (credentials !== ADMIN) throw new Error('You have no credentials to do it');
+
+        const gotUsers = await User.findAll({});
+
+        res.json({
+            success: true,
+            message: gotUsers
+        });
 
     } catch (e) {
         console.log(e);

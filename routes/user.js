@@ -5,10 +5,10 @@ const loginUser = require('../controllers/user/loginUser');
 const registerUser = require('../controllers/user/registerUser');
 const updateUser = require('../controllers/user/updateUser');
 const deleteUser = require('../controllers/user/deleteUser');
-const getUser = require('../controllers/user/getUser');
+const getCurrentUser = require('../controllers/user/getCurrentUser');
 
 router.get('/', getAllUsers);
-router.get('/user/info', getUser);
+router.get('/user/info', getCurrentUser);
 router.post('/login', loginUser);
 router.post('/register', registerUser);
 router.put('/:id', updateUser);

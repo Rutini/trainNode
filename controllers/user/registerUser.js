@@ -12,6 +12,7 @@ module.exports = async (req, res) => {
         if (!userInfo) throw new Error('Body is empty');
 
         const {name, email, password} = userInfo;
+
         if (!name || !email || !password) {
             throw new Error('Some fields are empty');
         }
@@ -22,13 +23,7 @@ module.exports = async (req, res) => {
             }
         });
 
-        if (alreadyExist) {
-            res.json({
-                success: false,
-                message: 'This user already exist'
-            });
-            throw new Error('User with this email already exist');
-        }
+        if (alreadyExist) throw new Error('This user already exist');
 
         const credentials = USER;
         const saltRounds = 10;

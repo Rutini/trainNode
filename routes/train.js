@@ -7,13 +7,9 @@ const getTrainByPk = require('../controllers/train/getTrainByPk');
 const updateTrain = require('../controllers/train/updateTrain');
 
 router.get('/fromStation/:id', getTrainsFromStation);
-
 router.get('/:id', getTrainByPk);
-
 router.post('/', addTrain);
-
 router.put('/:id', updateTrain);
-
 router.delete('/:id', deleteTrain);
 
 module.exports = router;
